@@ -43,7 +43,7 @@ export function Footer() {
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-6">
           {/* Brand column */}
           <div className="lg:col-span-2">
-            <SiteLogo className="mb-5 h-11" />
+            <SiteLogo className="mb-5 h-10" />
             <p className="mb-6 max-w-xs text-muted-foreground">
               Munkaerő-kölcsönzés, -közvetítés és toborzás. Stabil állások munkavállalóknak, megbízható munkaerő cégeknek.
             </p>

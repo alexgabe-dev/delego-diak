@@ -61,7 +61,7 @@ export function Navbar() {
     >
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 lg:px-8">
         {/* Logo */}
-        <SiteLogo className="h-11" priority />
+        <SiteLogo className="h-9 lg:h-10" priority />
 
         {/* Desktop Navigation */}
         <div className="hidden items-center gap-8 md:flex">
