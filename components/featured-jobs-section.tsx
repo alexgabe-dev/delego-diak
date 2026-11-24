@@ -6,15 +6,15 @@ import { featuredJobs } from '@/lib/jobs'
 
 export function FeaturedJobsSection() {
   return (
-    <section id="jobs" className="py-16 lg:py-24">
+    <section id="jobs" className="py-12 sm:py-16 lg:py-24">
       <div className="mx-auto max-w-7xl px-4 lg:px-8">
         {/* Section header */}
-        <div className="mb-10 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
+        <div className="mb-6 flex flex-col items-start justify-between gap-4 sm:mb-10 sm:flex-row sm:items-end">
           <div>
-            <h2 className="mb-2 text-3xl font-extrabold text-foreground lg:text-5xl text-balance">
+            <h2 className="mb-2 text-[1.75rem] font-extrabold sm:text-3xl text-foreground lg:text-5xl text-balance">
               Kiemelt állásaink
             </h2>
-            <p className="text-lg text-muted-foreground">
+            <p className="text-base text-muted-foreground sm:text-lg">
               Bejelentett, hosszú távú pozíciók ellenőrzött partnercégeinknél.
             </p>
           </div>
@@ -27,14 +27,14 @@ export function FeaturedJobsSection() {
         </div>
         
         {/* Jobs grid - 1 col mobile, 2 col tablet, 4 col desktop */}
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-3 sm:grid-cols-2 sm:gap-5 lg:grid-cols-4 max-sm:[&>*:nth-child(n+5)]:hidden">
           {featuredJobs.map((job) => (
             <JobCard key={job.id} job={job} />
           ))}
         </div>
         
         {/* Load more on mobile */}
-        <div className="mt-10 text-center lg:hidden">
+        <div className="mt-6 text-center sm:mt-10 lg:hidden">
           <Link href="/munkak">
             <Button size="lg" className="w-full bg-primary font-semibold text-primary-foreground hover:bg-cta sm:w-auto">
               További állások

@@ -171,8 +171,8 @@ export function ApplicationPage({ job }: { job?: JobDetail }) {
     <div className="min-h-screen bg-background">
       <Navbar />
 
-      <main className="pt-24 pb-14">
-        <div className="mx-auto max-w-7xl px-4 py-8 lg:px-8">
+      <main className="pt-20 pb-10 sm:pt-24 sm:pb-14">
+        <div className="mx-auto max-w-7xl px-4 py-6 sm:py-8 lg:px-8">
           <button
             onClick={() => router.back()}
             className="mb-6 inline-flex items-center gap-2 rounded-md px-1 text-sm font-bold text-muted-foreground transition-colors hover:text-foreground"
@@ -184,13 +184,13 @@ export function ApplicationPage({ job }: { job?: JobDetail }) {
           <div className="grid gap-8 lg:grid-cols-[1fr_340px]">
             <form noValidate onSubmit={handleSubmit} className="space-y-4">
               {/* Fejléc csempe */}
-              <div className="relative overflow-hidden rounded-2xl bg-zinc-900 p-6 text-white shadow-xl shadow-zinc-950/10 sm:p-8 dark:bg-card dark:ring-1 dark:ring-border">
+              <div className="relative overflow-hidden rounded-2xl bg-zinc-900 p-5 text-white shadow-xl shadow-zinc-950/10 sm:p-8 dark:bg-card dark:ring-1 dark:ring-border">
                 <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-primary/30 blur-3xl" />
                 <p className="relative mb-2 text-sm font-bold uppercase tracking-[0.14em] text-primary">
                   {job ? job.title : 'Adatbázisba jelentkezés'}
                 </p>
-                <h1 className="relative text-3xl font-extrabold lg:text-4xl">Jelentkezés</h1>
-                <p className="relative mt-2 max-w-2xl text-white/70">
+                <h1 className="relative text-[1.75rem] font-extrabold sm:text-3xl lg:text-4xl">Jelentkezés</h1>
+                <p className="relative mt-2 max-w-2xl text-sm text-white/70 sm:text-base">
                   {job
                     ? 'Töltsd ki az alábbi adatokat, és kollégáink a lehető legrövidebb időn belül felkeresnek.'
                     : 'Regisztrálj az adatbázisunkba, és amint hozzád illő állás nyílik, felkeresünk.'}
@@ -220,13 +220,13 @@ export function ApplicationPage({ job }: { job?: JobDetail }) {
                 <Tile icon={Phone} title="Elérhetőség">
                   <div className="space-y-4">
                     <Field id="phoneNumber" label="Telefonszám" error={errors.phoneNumber} required>
-                      <div className="flex gap-2">
-                        <select value={formData.phoneCountry} onChange={(e) => updateFormData('phoneCountry', e.target.value)} className={selectClass(false, 'w-[5.25rem] shrink-0 px-2')} aria-label="Országkód">
+                      <div className="flex gap-1.5 sm:gap-2">
+                        <select value={formData.phoneCountry} onChange={(e) => updateFormData('phoneCountry', e.target.value)} className={selectClass(false, 'w-[4.5rem] shrink-0 px-1.5 sm:w-[5.25rem] sm:px-2')} aria-label="Országkód">
                           {countryCodes.map((code) => (
                             <option key={code} value={code}>{code}</option>
                           ))}
                         </select>
-                        <select value={formData.phoneArea} onChange={(e) => updateFormData('phoneArea', e.target.value)} className={selectClass(!!errors.phoneNumber && !formData.phoneArea, 'w-[6.25rem] shrink-0 px-2')} aria-label="Körzetszám">
+                        <select value={formData.phoneArea} onChange={(e) => updateFormData('phoneArea', e.target.value)} className={selectClass(!!errors.phoneNumber && !formData.phoneArea, 'w-[5.5rem] shrink-0 px-1.5 sm:w-[6.25rem] sm:px-2')} aria-label="Körzetszám">
                           <option value="">Körzet</option>
                           {areaCodes.map((code) => (
                             <option key={code} value={code}>{code}</option>
@@ -307,7 +307,7 @@ export function ApplicationPage({ job }: { job?: JobDetail }) {
                 </Tile>
 
                 {/* Elfogadás és küldés */}
-                <div id="field-consent" className="scroll-mt-28 rounded-2xl border border-border bg-card p-5 shadow-sm sm:p-6 md:col-span-2">
+                <div id="field-consent" className="scroll-mt-28 rounded-2xl border border-border bg-card p-4 shadow-sm sm:p-6 md:col-span-2">
                   <label className={`flex items-start gap-3 rounded-xl p-4 ${errors.consent ? 'bg-destructive/5 ring-1 ring-destructive' : 'bg-secondary'}`}>
                     <input
                       type="checkbox"
@@ -333,7 +333,7 @@ export function ApplicationPage({ job }: { job?: JobDetail }) {
                     ) : (
                       <p className="text-sm text-muted-foreground"><span className="text-destructive">*</span> kötelező mező</p>
                     )}
-                    <Button type="submit" size="lg" disabled={isSubmitting} className="h-12 rounded-lg bg-primary px-8 font-bold text-primary-foreground shadow-lg shadow-primary/25 hover:bg-cta">
+                    <Button type="submit" size="lg" disabled={isSubmitting} className="h-12 w-full rounded-lg sm:w-auto bg-primary px-8 font-bold text-primary-foreground shadow-lg shadow-primary/25 hover:bg-cta">
                       {isSubmitting ? 'Küldés...' : 'Jelentkezés elküldése'}
                       {!isSubmitting && <Send className="ml-2 h-4 w-4" />}
                     </Button>
@@ -342,7 +342,7 @@ export function ApplicationPage({ job }: { job?: JobDetail }) {
               </div>
             </form>
 
-            <aside className="space-y-4 lg:sticky lg:top-24 lg:h-fit">
+            <aside className="hidden space-y-4 lg:sticky lg:top-24 lg:block lg:h-fit">
               {job ? (
                 <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-xl shadow-zinc-950/5">
                   <div className="h-40 bg-cover bg-center" style={{ backgroundImage: `url(${job.coverImage})` }} />
@@ -406,8 +406,8 @@ function Tile({
   children: React.ReactNode
 }) {
   return (
-    <section className={`rounded-2xl border border-border bg-card p-5 shadow-sm transition-shadow hover:shadow-md sm:p-6 ${className}`}>
-      <div className="mb-5 flex items-center gap-3">
+    <section className={`rounded-2xl border border-border bg-card p-4 shadow-sm transition-shadow hover:shadow-md sm:p-6 ${className}`}>
+      <div className="mb-4 flex items-center gap-3 sm:mb-5">
         <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent text-primary">
           <Icon className="h-5 w-5" />
         </span>

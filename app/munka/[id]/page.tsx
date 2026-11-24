@@ -2,12 +2,10 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import {
   ArrowLeft,
-  Banknote,
   Briefcase,
   Calendar,
   Clock,
   Heart,
-  MapPin,
   Share2,
   ShieldCheck,
   Sparkles,
@@ -37,7 +35,7 @@ export default async function JobDetailPage({
       <Navbar />
 
       <main className="pb-28 lg:pb-20">
-        <section className="relative min-h-[520px] overflow-hidden bg-zinc-950 pt-24 text-white">
+        <section className="relative min-h-[340px] overflow-hidden bg-zinc-950 pt-16 text-white sm:min-h-[440px] sm:pt-24">
           <div
             className="absolute inset-0 bg-cover bg-center"
             style={{ backgroundImage: `url(${job.headerImage})` }}
@@ -46,10 +44,10 @@ export default async function JobDetailPage({
           <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(18,18,20,0.92)_0%,rgba(18,18,20,0.72)_45%,rgba(18,18,20,0.2)_100%)]" />
           <div className="absolute bottom-0 left-0 top-0 w-1.5 bg-primary lg:w-2" />
 
-          <div className="relative mx-auto flex min-h-[430px] max-w-7xl flex-col justify-center px-4 py-10 lg:px-8">
+          <div className="relative mx-auto flex min-h-[276px] max-w-7xl flex-col justify-end px-4 pb-8 pt-8 sm:min-h-[350px] sm:justify-center sm:py-10 lg:px-8">
             <Link
               href="/#jobs"
-              className="mb-8 inline-flex w-fit items-center gap-2 rounded-md border border-white/15 bg-white/10 px-3 py-2 text-sm font-semibold text-white/85 backdrop-blur-md transition-colors hover:bg-white/15 hover:text-white"
+              className="mb-5 inline-flex w-fit sm:mb-8 items-center gap-2 rounded-md border border-white/15 bg-white/10 px-3 py-2 text-sm font-semibold text-white/85 backdrop-blur-md transition-colors hover:bg-white/15 hover:text-white"
             >
               <ArrowLeft className="h-4 w-4" />
               Vissza az állásokhoz
@@ -70,35 +68,16 @@ export default async function JobDetailPage({
                 )}
               </div>
 
-              <h1 className="mb-5 text-4xl font-extrabold leading-tight text-white md:text-5xl lg:text-6xl text-balance">
+              <h1 className="text-[2rem] font-extrabold leading-tight text-white sm:text-4xl md:text-5xl lg:text-6xl text-balance">
                 {job.title}
               </h1>
-
-              <dl className="mt-2 flex flex-col gap-5 sm:flex-row sm:flex-wrap sm:items-center sm:gap-0">
-                {[
-                  { icon: Banknote, label: 'Havi bér', value: job.salary },
-                  { icon: MapPin, label: 'Helyszín', value: job.location },
-                  { icon: Clock, label: 'Munkarend', value: job.workType },
-                ].map((item) => (
-                  <div
-                    key={item.label}
-                    className="flex items-center gap-3 sm:border-l sm:border-white/15 sm:px-7 sm:first:border-l-0 sm:first:pl-0"
-                  >
-                    <item.icon className="h-6 w-6 shrink-0 text-primary" />
-                    <div>
-                      <dt className="text-xs font-semibold uppercase tracking-[0.14em] text-white/55">{item.label}</dt>
-                      <dd className="text-lg font-bold text-white">{item.value}</dd>
-                    </div>
-                  </div>
-                ))}
-              </dl>
             </div>
           </div>
         </section>
 
         <div className="mx-auto grid max-w-7xl gap-8 px-4 pt-10 lg:grid-cols-[1fr_360px] lg:px-8 lg:pt-14">
           <div className="space-y-6">
-            <section className="rounded-lg border border-border bg-card p-6 shadow-sm lg:p-8">
+            <section className="rounded-xl border border-border bg-card p-5 shadow-sm sm:p-6 lg:p-8">
               <div className="mb-6 flex flex-wrap gap-3">
                 <span className="inline-flex items-center gap-2 rounded-md bg-secondary px-3 py-2 text-sm font-semibold text-secondary-foreground">
                   <Briefcase className="h-4 w-4 text-primary" />
@@ -119,7 +98,7 @@ export default async function JobDetailPage({
             </section>
 
             <section className="grid gap-6 md:grid-cols-2">
-              <div className="rounded-lg border border-border bg-card p-6 shadow-sm">
+              <div className="rounded-xl border border-border bg-card p-5 shadow-sm sm:p-6">
                 <h2 className="mb-5 text-xl font-extrabold text-foreground">Feladatok</h2>
                 <ul className="space-y-4">
                   {job.tasks.map((task) => (
@@ -131,7 +110,7 @@ export default async function JobDetailPage({
                 </ul>
               </div>
 
-              <div className="rounded-lg border border-border bg-card p-6 shadow-sm">
+              <div className="rounded-xl border border-border bg-card p-5 shadow-sm sm:p-6">
                 <h2 className="mb-5 text-xl font-extrabold text-foreground">Elvárások</h2>
                 <ul className="space-y-4">
                   {job.requirements.map((requirement) => (
@@ -144,7 +123,7 @@ export default async function JobDetailPage({
               </div>
             </section>
 
-            <section className="rounded-lg border border-border bg-card p-6 shadow-sm lg:p-8">
+            <section className="rounded-xl border border-border bg-card p-5 shadow-sm sm:p-6 lg:p-8">
               <h2 className="mb-5 text-2xl font-extrabold text-foreground">Amit kínálunk</h2>
               <div className="grid gap-3 sm:grid-cols-2">
                 {job.benefits.map((benefit) => (
@@ -208,7 +187,7 @@ export default async function JobDetailPage({
               <p className="mt-1 text-muted-foreground">További nyitott pozíciók partnereinknél.</p>
             </div>
           </div>
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-3 sm:grid-cols-2 sm:gap-5 lg:grid-cols-4">
             {relatedJobs.map((relatedJob) => (
               <JobCard key={relatedJob.id} job={relatedJob} />
             ))}
@@ -216,14 +195,14 @@ export default async function JobDetailPage({
         </section>
       </main>
 
-      <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-border bg-card/95 p-4 shadow-2xl backdrop-blur-md lg:hidden">
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4">
-          <div>
+      <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-border bg-card/95 px-4 pb-[calc(0.75rem+env(safe-area-inset-bottom))] pt-3 shadow-2xl backdrop-blur-md lg:hidden">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-3">
+          <div className="min-w-0">
             <p className="text-xs font-semibold text-muted-foreground">Havi bér</p>
-            <p className="whitespace-nowrap text-lg font-extrabold text-primary">{job.salary}</p>
+            <p className="truncate text-base font-extrabold text-primary sm:text-lg">{job.salary}</p>
           </div>
           <Link href={`/munka/${job.id}/jelentkezes`}>
-            <Button size="lg" className="bg-primary font-bold text-primary-foreground hover:bg-cta">
+            <Button size="lg" className="shrink-0 bg-primary px-5 font-bold text-primary-foreground hover:bg-cta">
               Jelentkezem
             </Button>
           </Link>

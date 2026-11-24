@@ -25,32 +25,34 @@ const features = [
 
 export function WhyDelegoSection() {
   return (
-    <section id="about" className="bg-secondary/60 py-16 lg:py-24">
+    <section id="about" className="bg-secondary/60 py-12 sm:py-16 lg:py-24">
       <div className="mx-auto max-w-7xl px-4 lg:px-8">
-        <div className="mb-12 grid gap-6 lg:grid-cols-[1fr_1fr] lg:items-end">
+        <div className="mb-8 grid gap-4 sm:mb-12 sm:gap-6 lg:grid-cols-[1fr_1fr] lg:items-end">
           <div>
             <p className="mb-3 text-sm font-bold uppercase tracking-[0.16em] text-primary">Munkavállalóknak</p>
-            <h2 className="text-3xl font-extrabold text-foreground lg:text-5xl text-balance">
+            <h2 className="text-[1.75rem] font-extrabold sm:text-3xl text-foreground lg:text-5xl text-balance">
               Miért dolgozz velünk?
             </h2>
           </div>
-          <p className="max-w-xl text-lg text-muted-foreground text-pretty lg:justify-self-end">
+          <p className="max-w-xl text-base text-muted-foreground sm:text-lg text-pretty lg:justify-self-end">
             Több mint 20 éve segítünk embereknek stabil, jól fizető munkát találni – és a munkába
             állás után is melletted maradunk.
           </p>
         </div>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-3 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4">
           {features.map((feature) => (
             <article
               key={feature.title}
-              className="group rounded-lg border border-border bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-xl hover:shadow-zinc-950/5"
+              className="group flex gap-4 rounded-xl border border-border bg-card p-4 transition-all sm:block sm:rounded-lg sm:p-6 duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-xl hover:shadow-zinc-950/5"
             >
-              <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-accent text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
+              <div className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg sm:mb-5 sm:h-12 sm:w-12 bg-accent text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
                 <feature.icon className="h-6 w-6" />
               </div>
-              <h3 className="mb-2 text-xl font-bold text-foreground">{feature.title}</h3>
-              <p className="text-muted-foreground">{feature.description}</p>
+              <div className="min-w-0">
+                <h3 className="mb-1 text-base font-bold text-foreground sm:mb-2 sm:text-xl">{feature.title}</h3>
+                <p className="text-sm text-muted-foreground sm:text-base">{feature.description}</p>
+              </div>
             </article>
           ))}
         </div>
