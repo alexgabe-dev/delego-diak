@@ -5,7 +5,6 @@ import {
   Banknote,
   Briefcase,
   Calendar,
-  CheckCircle2,
   Clock,
   Heart,
   MapPin,
@@ -76,17 +75,17 @@ export default async function JobDetailPage({
               </h1>
 
               <div className="grid max-w-3xl gap-3 sm:grid-cols-3">
-                <div className="rounded-lg border border-white/10 border-l-4 border-l-primary bg-white/10 p-4 backdrop-blur-md">
+                <div className="rounded-2xl bg-zinc-400/25 p-4 shadow-lg shadow-black/10 backdrop-blur-xl">
                   <Banknote className="mb-3 h-5 w-5 text-primary" />
                   <p className="text-xl font-extrabold">{job.salary}</p>
                   <p className="text-sm text-white/70">havi bér</p>
                 </div>
-                <div className="rounded-lg border border-white/10 border-l-4 border-l-primary bg-white/10 p-4 backdrop-blur-md">
+                <div className="rounded-2xl bg-zinc-400/25 p-4 shadow-lg shadow-black/10 backdrop-blur-xl">
                   <MapPin className="mb-3 h-5 w-5 text-primary" />
                   <p className="text-xl font-extrabold">{job.location}</p>
                   <p className="text-sm text-white/70">helyszín</p>
                 </div>
-                <div className="rounded-lg border border-white/10 border-l-4 border-l-primary bg-white/10 p-4 backdrop-blur-md">
+                <div className="rounded-2xl bg-zinc-400/25 p-4 shadow-lg shadow-black/10 backdrop-blur-xl">
                   <Clock className="mb-3 h-5 w-5 text-primary" />
                   <p className="text-xl font-extrabold">{job.workType}</p>
                   <p className="text-sm text-white/70">munkarend</p>
@@ -124,7 +123,7 @@ export default async function JobDetailPage({
                 <ul className="space-y-4">
                   {job.tasks.map((task) => (
                     <li key={task} className="flex items-start gap-3">
-                      <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
+                      <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-primary" />
                       <span className="text-muted-foreground">{task}</span>
                     </li>
                   ))}
@@ -195,7 +194,7 @@ export default async function JobDetailPage({
               </div>
 
               <p className="mt-6 rounded-md bg-primary/8 p-3 text-center text-sm font-semibold text-primary">
-                Kollégánk 1 munkanapon belül visszahívja.
+                Kollégáink <strong>a lehető legrövidebb</strong> időn belül felkeresik!
               </p>
             </div>
           </aside>

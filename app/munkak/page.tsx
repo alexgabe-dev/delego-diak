@@ -62,7 +62,7 @@ export default function JobsPage({
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-zinc-200/70 dark:bg-background">
       <Navbar />
 
       <main className="pt-24">

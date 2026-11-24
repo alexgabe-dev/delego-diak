@@ -1,19 +1,21 @@
 import Link from 'next/link'
-import { ArrowRight, BadgeCheck, Building2, HardHat, MapPin } from 'lucide-react'
+import { ArrowRight, BadgeCheck, Database, HardHat, MapPin } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
 export function HeroSection() {
   return (
     <section className="relative min-h-[720px] overflow-hidden bg-zinc-950 pt-28 text-white lg:min-h-[780px] lg:pt-32">
+      {/* Borítókép: mobilon teljes háttér, asztali nézetben a jobb oldalon, hogy az arc ne kerüljön a szöveg alá */}
       <div
-        className="absolute inset-0 bg-cover bg-center"
+        className="absolute inset-0 bg-cover bg-[position:62%_center] lg:left-[38%]"
         style={{
           backgroundImage:
-            "url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1800&h=1100&fit=crop&q=85')",
+            "url('https://images.unsplash.com/photo-1725811641350-f63dc7442725?w=1800&h=1200&fit=crop&q=85')",
         }}
       />
-      <div className="absolute inset-0 bg-zinc-950/60" />
-      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(18,18,20,0.95)_0%,rgba(18,18,20,0.8)_45%,rgba(18,18,20,0.35)_100%)]" />
+      <div className="absolute inset-0 bg-zinc-950/65 lg:hidden" />
+      <div className="absolute inset-0 hidden lg:block bg-[linear-gradient(90deg,rgba(18,18,20,1)_0%,rgba(18,18,20,1)_38%,rgba(18,18,20,0.55)_52%,rgba(18,18,20,0.05)_75%,rgba(18,18,20,0)_100%)]" />
+      <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-zinc-950/70 to-transparent" />
       {/* Piros arculati sáv */}
       <div className="absolute bottom-0 left-0 top-0 w-1.5 bg-primary lg:w-2" />
 
@@ -43,14 +45,14 @@ export function HeroSection() {
                 Munkát keresek
               </Button>
             </Link>
-            <Link href="#cegeknek">
+            <Link href="/jelentkezes">
               <Button
                 size="lg"
                 variant="outline"
                 className="h-12 w-full border-white/70 bg-white/10 px-7 text-base font-bold text-white backdrop-blur-md hover:bg-white hover:text-zinc-950 sm:w-auto"
               >
-                <Building2 className="mr-1 h-5 w-5" />
-                Munkaerőt keresek
+                <Database className="mr-1 h-5 w-5" />
+                Adatbázisba jelentkezem
                 <ArrowRight className="ml-1 h-4 w-4" />
               </Button>
             </Link>

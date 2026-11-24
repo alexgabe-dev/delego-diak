@@ -92,9 +92,9 @@ export function Navbar() {
               Munkaerőt keresek
             </Button>
           </Link>
-          <Link href="/munkak">
+          <Link href="/jelentkezes">
             <Button className="bg-primary font-semibold text-primary-foreground hover:bg-cta">
-              Munkát keresek
+              Adatbázisba jelentkezem
             </Button>
           </Link>
         </div>
@@ -138,9 +138,9 @@ export function Navbar() {
                 Munkaerőt keresek
               </Button>
             </Link>
-            <Link href="/munkak" onClick={() => setIsMobileMenuOpen(false)}>
+            <Link href="/jelentkezes" onClick={() => setIsMobileMenuOpen(false)}>
               <Button className="w-full bg-primary font-semibold text-primary-foreground hover:bg-cta">
-                Munkát keresek
+                Adatbázisba jelentkezem
               </Button>
             </Link>
           </div>
