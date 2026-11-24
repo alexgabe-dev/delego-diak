@@ -8,22 +8,19 @@ import { Input } from '@/components/ui/input'
 
 const cities = ['Budapest', 'Győr', 'Kecskemét', 'Székesfehérvár', 'Debrecen', 'Miskolc']
 const categories = ['Gyártás', 'Logisztika', 'Szakmunka', 'Szállítás', 'Minőségbiztosítás']
-const workTypes = ['Teljes munkaidő', 'Több műszak']
 
 export function SearchSection() {
   const router = useRouter()
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedCity, setSelectedCity] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('')
-  const [selectedWorkType, setSelectedWorkType] = useState('')
   const [showFilters, setShowFilters] = useState(false)
 
-  const hasActiveFilters = selectedCity || selectedCategory || selectedWorkType
+  const hasActiveFilters = selectedCity || selectedCategory
 
   const clearFilters = () => {
     setSelectedCity('')
     setSelectedCategory('')
-    setSelectedWorkType('')
   }
 
   const submitSearch = () => {
@@ -32,7 +29,6 @@ export function SearchSection() {
     if (searchQuery.trim()) params.set('q', searchQuery.trim())
     if (selectedCity) params.set('city', selectedCity)
     if (selectedCategory) params.set('category', selectedCategory)
-    if (selectedWorkType) params.set('type', selectedWorkType)
 
     const queryString = params.toString()
     router.push(queryString ? `/munkak?${queryString}` : '/munkak')
@@ -137,27 +133,6 @@ export function SearchSection() {
                 ))}
               </select>
             </div>
-            
-            <div className="sm:col-span-2">
-              <label className="mb-2 block text-sm font-medium text-muted-foreground">
-                Munka típusa
-              </label>
-              <div className="flex flex-wrap gap-2">
-                {workTypes.map((type) => (
-                  <button
-                    key={type}
-                    onClick={() => setSelectedWorkType(selectedWorkType === type ? '' : type)}
-                    className={`rounded-md px-4 py-2 text-sm font-medium transition-colors ${
-                      selectedWorkType === type
-                        ? 'bg-primary text-primary-foreground'
-                        : 'bg-secondary text-foreground hover:bg-primary/10'
-                    }`}
-                  >
-                    {type}
-                  </button>
-                ))}
-              </div>
-            </div>
           </div>
         )}
         
@@ -177,14 +152,6 @@ export function SearchSection() {
               <span className="inline-flex items-center gap-1 rounded-md bg-primary/10 px-3 py-1 text-sm font-medium text-primary">
                 {selectedCategory}
                 <button onClick={() => setSelectedCategory('')}>
-                  <X className="h-3 w-3" />
-                </button>
-              </span>
-            )}
-            {selectedWorkType && (
-              <span className="inline-flex items-center gap-1 rounded-md bg-primary/10 px-3 py-1 text-sm font-medium text-primary">
-                {selectedWorkType}
-                <button onClick={() => setSelectedWorkType('')}>
                   <X className="h-3 w-3" />
                 </button>
               </span>

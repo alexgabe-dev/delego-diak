@@ -121,10 +121,9 @@ export default function JobsPage({
             </div>
 
             {showMobileFilters && (
-              <div className="mt-4 grid gap-3 border-t border-border pt-4 sm:grid-cols-3 lg:hidden">
+              <div className="mt-4 grid gap-3 border-t border-border pt-4 sm:grid-cols-2 lg:hidden">
                 <FilterSelect value={city} onChange={setCity} options={cities} placeholder="Minden város" />
                 <FilterSelect value={category} onChange={setCategory} options={categories} placeholder="Minden kategória" />
-                <FilterSelect value={workType} onChange={setWorkType} options={workTypes} placeholder="Minden típus" />
               </div>
             )}
 
