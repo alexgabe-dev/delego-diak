@@ -15,6 +15,7 @@ import {
   MapPin,
   ShieldCheck,
   Upload,
+  X,
   User,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -30,18 +31,36 @@ const steps = [
 ]
 
 interface FormData {
-  firstName: string
   lastName: string
-  email: string
-  phone: string
+  firstName: string
   birthDate: string
-  education: string
-  lastPosition: string
-  experienceYears: string
-  licenses: string
+  birthPlace: string
+  phoneCountry: string
+  phoneArea: string
+  phoneNumber: string
+  email: string
+  region: string
+  city: string
+  experience: string
+  desiredPosition: string
+  accommodation: string
   cv: File | null
-  motivation: string
+  documents: File[]
 }
+
+const countryCodes = ['+36', '+40', '+421', '+381', '+380', '+43']
+const areaCodes = ['20', '30', '31', '50', '70', '1']
+const regions = [
+  'Budapest',
+  'Pest',
+  'Közép-Dunántúl',
+  'Nyugat-Dunántúl',
+  'Dél-Dunántúl',
+  'Észak-Magyarország',
+  'Észak-Alföld',
+  'Dél-Alföld',
+]
+const accommodationOptions = ['Igen, szállásos munkát keresek', 'Nem, nincs szükségem szállásra', 'Mindkettő érdekel']
 
 type FormErrors = Partial<Record<keyof FormData, string>> & { consent?: string }
 
@@ -54,21 +73,25 @@ export default function ApplicationPage() {
   const [isSuccess, setIsSuccess] = useState(false)
   const [consentAccepted, setConsentAccepted] = useState(false)
   const [formData, setFormData] = useState<FormData>({
-    firstName: '',
     lastName: '',
-    email: '',
-    phone: '',
+    firstName: '',
     birthDate: '',
-    education: '',
-    lastPosition: '',
-    experienceYears: '',
-    licenses: '',
+    birthPlace: '',
+    phoneCountry: '+36',
+    phoneArea: '',
+    phoneNumber: '',
+    email: '',
+    region: '',
+    city: '',
+    experience: '',
+    desiredPosition: job?.title.split(' – ')[0] ?? '',
+    accommodation: '',
     cv: null,
-    motivation: '',
+    documents: [],
   })
   const [errors, setErrors] = useState<FormErrors>({})
 
-  const updateFormData = (field: keyof FormData, value: string | File | null) => {
+  const updateFormData = <K extends keyof FormData>(field: K, value: FormData[K]) => {
     setFormData((prev) => ({ ...prev, [field]: value }))
     if (errors[field]) {
       setErrors((prev) => ({ ...prev, [field]: undefined }))
@@ -81,15 +104,20 @@ export default function ApplicationPage() {
     if (step === 1) {
       if (!formData.lastName.trim()) newErrors.lastName = 'A vezetéknév megadása kötelező'
       if (!formData.firstName.trim()) newErrors.firstName = 'A keresztnév megadása kötelező'
-      if (!formData.email.trim()) newErrors.email = 'Az email megadása kötelező'
-      else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) newErrors.email = 'Érvénytelen email cím'
-      if (!formData.phone.trim()) newErrors.phone = 'A telefonszám megadása kötelező'
-      if (!formData.birthDate) newErrors.birthDate = 'A születési dátum megadása kötelező'
+      if (!formData.birthDate) newErrors.birthDate = 'A születési idő megadása kötelező'
+      if (!formData.birthPlace.trim()) newErrors.birthPlace = 'A születési hely megadása kötelező'
+      if (!formData.phoneArea || formData.phoneNumber.replace(/\s/g, '').length < 6)
+        newErrors.phoneNumber = 'Add meg a körzetszámot és a telefonszámot'
+      if (!formData.email.trim()) newErrors.email = 'Az e-mail cím megadása kötelező'
+      else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) newErrors.email = 'Érvénytelen e-mail cím'
+      if (!formData.region) newErrors.region = 'Válassz régiót'
+      if (!formData.city.trim()) newErrors.city = 'A település megadása kötelező'
     }
 
     if (step === 2) {
-      if (!formData.education) newErrors.education = 'A legmagasabb végzettség megadása kötelező'
-      if (!formData.experienceYears) newErrors.experienceYears = 'A szakmai tapasztalat megadása kötelező'
+      if (!formData.experience.trim()) newErrors.experience = 'Írj pár szót a szakmai tapasztalatodról'
+      if (!formData.desiredPosition.trim()) newErrors.desiredPosition = 'A keresett munkakör megadása kötelező'
+      if (!formData.accommodation) newErrors.accommodation = 'Válassz egy lehetőséget'
     }
 
     if (step === 4 && !consentAccepted) {
@@ -179,8 +207,8 @@ export default function ApplicationPage() {
                 </h1>
                 <p className="mt-2 text-muted-foreground">
                   {currentStep === 1 && 'Add meg az alapadataidat, hogy fel tudjuk venni veled a kapcsolatot.'}
-                  {currentStep === 2 && 'Mondd el röviden, milyen végzettséged és tapasztalatod van.'}
-                  {currentStep === 3 && 'Az önéletrajz opcionális, de segít gyorsabban a megfelelő pozícióhoz illeszteni.'}
+                  {currentStep === 2 && 'Mondd el röviden, milyen tapasztalatod van és milyen munkát keresel.'}
+                  {currentStep === 3 && 'Az önéletrajz és a további dokumentumok opcionálisak, de segítenek gyorsabban a megfelelő pozícióhoz illeszteni.'}
                   {currentStep === 4 && 'Nézd át az adatokat, majd küldd el a jelentkezést.'}
                 </p>
 
@@ -211,81 +239,93 @@ export default function ApplicationPage() {
                 {currentStep === 1 && (
                   <div className="grid gap-5 sm:grid-cols-2">
                     <Field label="Vezetéknév" error={errors.lastName} required>
-                      <Input value={formData.lastName} onChange={(e) => updateFormData('lastName', e.target.value)} placeholder="pl. Kovács" className={inputClass('lastName')} />
+                      <Input value={formData.lastName} onChange={(e) => updateFormData('lastName', e.target.value)} placeholder="Vezetéknév" className={inputClass('lastName')} />
                     </Field>
                     <Field label="Keresztnév" error={errors.firstName} required>
-                      <Input value={formData.firstName} onChange={(e) => updateFormData('firstName', e.target.value)} placeholder="pl. Anna" className={inputClass('firstName')} />
+                      <Input value={formData.firstName} onChange={(e) => updateFormData('firstName', e.target.value)} placeholder="Keresztnév" className={inputClass('firstName')} />
                     </Field>
-                    <Field label="Email cím" error={errors.email} required className="sm:col-span-2">
-                      <Input type="email" value={formData.email} onChange={(e) => updateFormData('email', e.target.value)} placeholder="pl. anna@email.hu" className={inputClass('email')} />
-                    </Field>
-                    <Field label="Telefonszám" error={errors.phone} required>
-                      <Input type="tel" value={formData.phone} onChange={(e) => updateFormData('phone', e.target.value)} placeholder="pl. +36 30 123 4567" className={inputClass('phone')} />
-                    </Field>
-                    <Field label="Születési dátum" error={errors.birthDate} required>
+                    <Field label="Születési idő" error={errors.birthDate} required>
                       <Input type="date" value={formData.birthDate} onChange={(e) => updateFormData('birthDate', e.target.value)} className={inputClass('birthDate')} />
+                    </Field>
+                    <Field label="Születési hely" error={errors.birthPlace} required>
+                      <Input value={formData.birthPlace} onChange={(e) => updateFormData('birthPlace', e.target.value)} placeholder="Születési hely" className={inputClass('birthPlace')} />
+                    </Field>
+                    <Field label="Telefonszám" error={errors.phoneNumber} required>
+                      <div className="flex gap-2">
+                        <select value={formData.phoneCountry} onChange={(e) => updateFormData('phoneCountry', e.target.value)} className={`h-12 rounded-md border border-input bg-background px-2 text-sm text-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 w-[5.5rem] shrink-0`} aria-label="Országkód">
+                          {countryCodes.map((code) => (
+                            <option key={code} value={code}>{code}</option>
+                          ))}
+                        </select>
+                        <select value={formData.phoneArea} onChange={(e) => updateFormData('phoneArea', e.target.value)} className={`h-12 rounded-md border border-input bg-background px-2 text-sm text-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 w-[6.5rem] shrink-0 ${errors.phoneNumber && !formData.phoneArea ? 'border-destructive' : ''}`} aria-label="Körzetszám">
+                          <option value="">Körzet</option>
+                          {areaCodes.map((code) => (
+                            <option key={code} value={code}>{code}</option>
+                          ))}
+                        </select>
+                        <Input type="tel" inputMode="numeric" value={formData.phoneNumber} onChange={(e) => updateFormData('phoneNumber', e.target.value.replace(/[^0-9 ]/g, ''))} placeholder="123 4567" className={`${inputClass('phoneNumber')} min-w-0 flex-1`} aria-label="Telefonszám" />
+                      </div>
+                    </Field>
+                    <Field label="E-mail cím" error={errors.email} required>
+                      <Input type="email" value={formData.email} onChange={(e) => updateFormData('email', e.target.value)} placeholder="E-mail cím" className={inputClass('email')} />
+                    </Field>
+                    <Field label="Régió" error={errors.region} required>
+                      <select value={formData.region} onChange={(e) => updateFormData('region', e.target.value)} className={`h-12 w-full rounded-md border border-input bg-background px-3 text-sm text-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 ${errors.region ? 'border-destructive' : ''}`}>
+                        <option value="">Válassz</option>
+                        {regions.map((region) => (
+                          <option key={region} value={region}>{region}</option>
+                        ))}
+                      </select>
+                    </Field>
+                    <Field label="Település" error={errors.city} required>
+                      <Input value={formData.city} onChange={(e) => updateFormData('city', e.target.value)} placeholder="Település" className={inputClass('city')} />
                     </Field>
                   </div>
                 )}
 
                 {currentStep === 2 && (
                   <div className="grid gap-5 sm:grid-cols-2">
-                    <Field label="Legmagasabb iskolai végzettség" error={errors.education} required>
-                      <select value={formData.education} onChange={(e) => updateFormData('education', e.target.value)} className={`${inputClass('education')} w-full border border-input px-3 text-sm focus:border-primary focus:outline-none`}>
-                        <option value="">Válassz...</option>
-                        {['8 általános', 'Szakmunkásképző / szakiskola', 'Érettségi', 'Technikum / OKJ', 'Felsőfokú'].map((option) => (
+                    <Field label="Szakmai tapasztalat" error={errors.experience} required className="sm:row-span-2">
+                      <textarea
+                        value={formData.experience}
+                        onChange={(e) => updateFormData('experience', e.target.value)}
+                        placeholder="Szakmai tapasztalat"
+                        rows={6}
+                        className={`w-full resize-y rounded-md border bg-background px-4 py-3 text-foreground transition-colors focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 ${errors.experience ? 'border-destructive' : 'border-input'}`}
+                      />
+                    </Field>
+                    <Field label="Keresett munkakör" error={errors.desiredPosition} required>
+                      <Input value={formData.desiredPosition} onChange={(e) => updateFormData('desiredPosition', e.target.value)} placeholder="Keresett munkakör" className={inputClass('desiredPosition')} />
+                    </Field>
+                    <Field label="Szállásos munkalehetőség" error={errors.accommodation} required>
+                      <select value={formData.accommodation} onChange={(e) => updateFormData('accommodation', e.target.value)} className={`h-12 w-full rounded-md border border-input bg-background px-3 text-sm text-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 ${errors.accommodation ? 'border-destructive' : ''}`}>
+                        <option value="">Válassz</option>
+                        {accommodationOptions.map((option) => (
                           <option key={option} value={option}>{option}</option>
                         ))}
                       </select>
-                    </Field>
-                    <Field label="Szakmai tapasztalat" error={errors.experienceYears} required>
-                      <select value={formData.experienceYears} onChange={(e) => updateFormData('experienceYears', e.target.value)} className={`${inputClass('experienceYears')} w-full border border-input px-3 text-sm focus:border-primary focus:outline-none`}>
-                        <option value="">Válassz...</option>
-                        {['Nincs még', '1 év alatt', '1–3 év', '3–5 év', '5 év felett'].map((option) => (
-                          <option key={option} value={option}>{option}</option>
-                        ))}
-                      </select>
-                    </Field>
-                    <Field label="Jelenlegi / utolsó munkakör" className="sm:col-span-2">
-                      <Input value={formData.lastPosition} onChange={(e) => updateFormData('lastPosition', e.target.value)} placeholder="pl. raktári munkatárs" className={inputClass('lastPosition')} />
-                    </Field>
-                    <Field label="Jogosítványok, képesítések" className="sm:col-span-2">
-                      <Input value={formData.licenses} onChange={(e) => updateFormData('licenses', e.target.value)} placeholder="pl. B kategória, OKJ targonca, hegesztő minősítés" className={inputClass('licenses')} />
                     </Field>
                   </div>
                 )}
 
                 {currentStep === 3 && (
-                  <div className="space-y-5">
-                    <div>
-                      <label className="mb-2 block text-sm font-bold text-foreground">Önéletrajz</label>
-                      <div className="relative">
-                        <input
-                          type="file"
-                          accept=".pdf,.doc,.docx"
-                          onChange={(e) => updateFormData('cv', e.target.files?.[0] || null)}
-                          className="absolute inset-0 z-10 h-full w-full cursor-pointer opacity-0"
-                        />
-                        <div className="flex min-h-40 flex-col items-center justify-center rounded-lg border-2 border-dashed border-border bg-secondary/60 p-6 text-center transition-colors hover:border-primary hover:bg-secondary">
-                          <Upload className="mb-3 h-8 w-8 text-primary" />
-                          <p className="font-bold text-foreground">
-                            {formData.cv ? formData.cv.name : 'Kattints a feltöltéshez'}
-                          </p>
-                          <p className="mt-1 text-sm text-muted-foreground">PDF, DOC vagy DOCX, maximum 5MB</p>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div>
-                      <label className="mb-2 block text-sm font-bold text-foreground">Pár mondat magadról</label>
-                      <textarea
-                        value={formData.motivation}
-                        onChange={(e) => updateFormData('motivation', e.target.value)}
-                        placeholder="Írd le röviden, mikor tudnál kezdeni, vállalsz-e több műszakot, vagy szükséged van-e szállásra..."
-                        rows={6}
-                        className="w-full resize-none rounded-md border border-input bg-background px-4 py-3 text-foreground transition-colors focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
-                      />
-                    </div>
+                  <div className="grid gap-5 sm:grid-cols-2">
+                    <UploadBox
+                      label="Önéletrajz feltöltése"
+                      buttonLabel="Önéletrajz feltöltése"
+                      files={formData.cv ? [formData.cv] : []}
+                      onFiles={(files) => updateFormData('cv', files[0] ?? null)}
+                    />
+                    <UploadBox
+                      label="További dokumentumok feltöltése"
+                      buttonLabel="Feltöltés"
+                      multiple
+                      files={formData.documents}
+                      onFiles={(files) => updateFormData('documents', files)}
+                    />
+                    <p className="text-sm text-muted-foreground sm:col-span-2">
+                      PDF, DOC, DOCX, JPG vagy PNG, fájlonként maximum 5 MB. Pl. bizonyítványok, jogosítványok, képesítések.
+                    </p>
                   </div>
                 )}
 
@@ -293,19 +333,20 @@ export default function ApplicationPage() {
                   <div className="space-y-5">
                     <SummaryBlock title="Személyes adatok" rows={[
                       ['Név', `${formData.lastName} ${formData.firstName}`],
-                      ['Email', formData.email],
-                      ['Telefon', formData.phone],
-                      ['Születési dátum', formData.birthDate],
+                      ['Születési idő', formData.birthDate],
+                      ['Születési hely', formData.birthPlace],
+                      ['Telefon', `${formData.phoneCountry} ${formData.phoneArea} ${formData.phoneNumber}`],
+                      ['E-mail', formData.email],
+                      ['Lakhely', `${formData.city} (${formData.region})`],
                     ]} />
                     <SummaryBlock title="Szakmai adatok" rows={[
-                      ['Végzettség', formData.education],
-                      ['Tapasztalat', formData.experienceYears],
-                      ['Utolsó munkakör', formData.lastPosition || '-'],
-                      ['Képesítések', formData.licenses || '-'],
+                      ['Keresett munkakör', formData.desiredPosition],
+                      ['Szállásos munka', formData.accommodation],
+                      ['Szakmai tapasztalat', formData.experience],
                     ]} />
                     <SummaryBlock title="Dokumentumok" rows={[
                       ['Önéletrajz', formData.cv?.name || 'Nincs feltöltve'],
-                      ['Megjegyzés', formData.motivation ? 'Megadva' : 'Nincs'],
+                      ['További dokumentumok', formData.documents.length ? `${formData.documents.length} fájl` : 'Nincs'],
                     ]} />
 
                     <div className={`rounded-lg border p-4 ${errors.consent ? 'border-destructive bg-destructive/5' : 'border-primary/20 bg-primary/5'}`}>
@@ -447,6 +488,61 @@ function Info({
         {label}
       </span>
       <span className="text-right font-bold text-foreground">{value}</span>
+    </div>
+  )
+}
+
+function UploadBox({
+  label,
+  buttonLabel,
+  files,
+  onFiles,
+  multiple = false,
+}: {
+  label: string
+  buttonLabel: string
+  files: File[]
+  onFiles: (files: File[]) => void
+  multiple?: boolean
+}) {
+  return (
+    <div>
+      <p className="mb-2 block text-sm font-bold text-foreground">{label}</p>
+      <label className="inline-flex h-12 cursor-pointer items-center gap-3 rounded-md bg-primary px-5 font-bold text-primary-foreground shadow-md shadow-primary/20 transition-colors hover:bg-cta focus-within:ring-2 focus-within:ring-primary/40">
+        {buttonLabel}
+        <Upload className="h-5 w-5" />
+        <input
+          type="file"
+          multiple={multiple}
+          accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
+          onChange={(e) => {
+            const picked = Array.from(e.target.files ?? [])
+            onFiles(multiple ? [...files, ...picked] : picked)
+            e.target.value = ''
+          }}
+          className="sr-only"
+        />
+      </label>
+      {files.length > 0 && (
+        <ul className="mt-3 space-y-2">
+          {files.map((file, index) => (
+            <li key={`${file.name}-${index}`} className="flex items-center justify-between gap-2 rounded-md bg-secondary px-3 py-2 text-sm">
+              <span className="flex min-w-0 items-center gap-2 font-semibold text-foreground">
+                <FileText className="h-4 w-4 shrink-0 text-primary" />
+                <span className="truncate">{file.name}</span>
+              </span>
+              <button
+                type="button"
+                onClick={() => onFiles(files.filter((_, i) => i !== index))}
+                className="text-muted-foreground hover:text-primary"
+                aria-label={`${file.name} eltávolítása`}
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   )
 }
