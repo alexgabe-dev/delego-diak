@@ -87,7 +87,7 @@ export function Navbar() {
           </button>
           
           <Link href="/jelentkezes">
-            <Button className="h-10 px-4 border border-zinc-900 bg-zinc-900 font-bold text-white shadow-sm transition-colors hover:bg-white hover:text-zinc-950 dark:border-white/70 dark:bg-white/10 dark:backdrop-blur-md dark:hover:bg-white dark:hover:text-zinc-950">
+            <Button className="h-10 px-4 border border-white/50 bg-zinc-700 font-bold text-white shadow-md shadow-zinc-900/15 ring-1 ring-zinc-700/40 backdrop-blur-md transition-colors hover:bg-white hover:text-zinc-950 hover:ring-zinc-300 dark:border-white/70 dark:bg-white/10 dark:backdrop-blur-md dark:hover:bg-white dark:hover:text-zinc-950">
               <Database className="h-4 w-4" />
               Adatbázisba jelentkezem
               <ArrowRight className="h-4 w-4" />
@@ -130,7 +130,7 @@ export function Navbar() {
             ))}
             <hr className="border-border" />
             <Link href="/jelentkezes" onClick={() => setIsMobileMenuOpen(false)}>
-              <Button className="h-11 w-full border border-zinc-900 bg-zinc-900 font-bold text-white shadow-sm transition-colors hover:bg-white hover:text-zinc-950 dark:border-white/70 dark:bg-white/10 dark:backdrop-blur-md dark:hover:bg-white dark:hover:text-zinc-950">
+              <Button className="h-11 w-full border border-white/50 bg-zinc-700 font-bold text-white shadow-md shadow-zinc-900/15 ring-1 ring-zinc-700/40 backdrop-blur-md transition-colors hover:bg-white hover:text-zinc-950 hover:ring-zinc-300 dark:border-white/70 dark:bg-white/10 dark:backdrop-blur-md dark:hover:bg-white dark:hover:text-zinc-950">
                 <Database className="h-4 w-4" />
                 Adatbázisba jelentkezem
                 <ArrowRight className="h-4 w-4" />
