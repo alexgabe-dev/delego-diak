@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
-import { Menu, X, Moon, Sun } from 'lucide-react'
+import { ArrowRight, Database, Menu, X, Moon, Sun } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { SiteLogo } from '@/components/site-logo'
 
@@ -45,7 +45,6 @@ export function Navbar() {
 
   const navLinks = [
     { href: '/munkak', label: 'Állások' },
-    { href: '/#about', label: 'Munkavállalóknak' },
     { href: '/#cegeknek', label: 'Cégeknek' },
     { href: '/rolunk', label: 'Rólunk' },
     { href: '/kapcsolat', label: 'Kapcsolat' },
@@ -88,8 +87,10 @@ export function Navbar() {
           </button>
           
           <Link href="/jelentkezes">
-            <Button className="bg-primary font-semibold text-primary-foreground hover:bg-cta">
+            <Button className="h-10 px-4 border border-zinc-900 bg-zinc-900 font-bold text-white shadow-sm transition-colors hover:bg-white hover:text-zinc-950 dark:border-white/70 dark:bg-white/10 dark:backdrop-blur-md dark:hover:bg-white dark:hover:text-zinc-950">
+              <Database className="h-4 w-4" />
               Adatbázisba jelentkezem
+              <ArrowRight className="h-4 w-4" />
             </Button>
           </Link>
         </div>
@@ -129,8 +130,10 @@ export function Navbar() {
             ))}
             <hr className="border-border" />
             <Link href="/jelentkezes" onClick={() => setIsMobileMenuOpen(false)}>
-              <Button className="w-full bg-primary font-semibold text-primary-foreground hover:bg-cta">
+              <Button className="h-11 w-full border border-zinc-900 bg-zinc-900 font-bold text-white shadow-sm transition-colors hover:bg-white hover:text-zinc-950 dark:border-white/70 dark:bg-white/10 dark:backdrop-blur-md dark:hover:bg-white dark:hover:text-zinc-950">
+                <Database className="h-4 w-4" />
                 Adatbázisba jelentkezem
+                <ArrowRight className="h-4 w-4" />
               </Button>
             </Link>
           </div>
