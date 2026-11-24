@@ -66,38 +66,39 @@ export default function JobsPage({
       <Navbar />
 
       <main className="pt-24">
-        <section className="relative overflow-hidden bg-slate-950 px-4 py-16 text-white lg:px-8 lg:py-20">
+        <section className="relative overflow-hidden bg-zinc-950 px-4 py-16 text-white lg:px-8 lg:py-20">
           <div
             className="absolute inset-0 bg-cover bg-center opacity-35"
             style={{
               backgroundImage:
-                "url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1800&h=800&fit=crop&q=85')",
+                "url('https://images.unsplash.com/photo-1624927637280-f033784c1279?w=1800&h=800&fit=crop&q=85')",
             }}
           />
-          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(15,23,42,0.96)_0%,rgba(15,23,42,0.78)_55%,rgba(15,23,42,0.42)_100%)]" />
+          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(18,18,20,0.96)_0%,rgba(18,18,20,0.78)_55%,rgba(18,18,20,0.42)_100%)]" />
+          <div className="absolute bottom-0 left-0 top-0 w-1.5 bg-primary lg:w-2" />
 
           <div className="relative mx-auto max-w-7xl">
-            <p className="mb-3 inline-flex rounded-md bg-white/12 px-3 py-2 text-sm font-bold text-white/85 backdrop-blur-md">
-              Összes diákmunka
+            <p className="mb-3 inline-flex rounded-md bg-primary px-3 py-2 text-sm font-bold text-primary-foreground">
+              Összes állás
             </p>
             <h1 className="max-w-3xl text-4xl font-extrabold leading-tight md:text-5xl lg:text-6xl text-balance">
-              Találd meg a következő munkád pár kattintással.
+              Találd meg a következő stabil munkahelyed.
             </h1>
             <p className="mt-5 max-w-2xl text-lg leading-8 text-white/78">
-              Böngéssz a friss lehetőségek között, szűrj városra, kategóriára vagy munkaidőre.
+              Böngéssz a friss állások között, szűrj városra, szakterületre vagy munkarendre.
             </p>
           </div>
         </section>
 
         <section className="relative z-10 mx-auto -mt-10 max-w-7xl px-4 lg:px-8">
-          <div className="rounded-lg border border-border/70 bg-card/95 p-4 shadow-2xl shadow-slate-950/10 backdrop-blur-md lg:p-5">
+          <div className="rounded-lg border border-border/70 bg-card/95 p-4 shadow-2xl shadow-zinc-950/10 backdrop-blur-md lg:p-5">
             <div className="grid gap-3 lg:grid-cols-[1fr_auto_auto_auto]">
               <div className="relative">
                 <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
                 <Input
                   value={query}
                   onChange={(event) => setQuery(event.target.value)}
-                  placeholder="Keress munkakörre, városra..."
+                  placeholder="Munkakör, város..."
                   className="h-12 rounded-md border-2 border-transparent bg-secondary pl-12 text-base focus:border-primary focus:bg-card"
                 />
               </div>
@@ -146,10 +147,10 @@ export default function JobsPage({
           <div className="mb-8 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
             <div>
               <h2 className="text-3xl font-extrabold text-foreground lg:text-4xl">
-                {filteredJobs.length} elérhető munka
+                {filteredJobs.length} elérhető állás
               </h2>
               <p className="mt-2 text-muted-foreground">
-                Friss, ellenőrzött lehetőségek diákoknak.
+                Bejelentett, hosszú távú pozíciók ellenőrzött partnereinknél.
               </p>
             </div>
             <div className="flex gap-3 text-sm text-muted-foreground">
@@ -159,7 +160,7 @@ export default function JobsPage({
               </span>
               <span className="inline-flex items-center gap-2 rounded-md bg-secondary px-3 py-2 font-semibold">
                 <Briefcase className="h-4 w-4 text-primary" />
-                {categories.length} kategória
+                {categories.length} szakterület
               </span>
             </div>
           </div>
@@ -174,7 +175,7 @@ export default function JobsPage({
             <div className="rounded-lg border border-border bg-card p-10 text-center">
               <h3 className="text-2xl font-extrabold text-foreground">Nincs találat</h3>
               <p className="mx-auto mt-2 max-w-md text-muted-foreground">
-                Próbálj meg kevesebb szűrőt használni, vagy töröld az aktív szűrőket.
+                Próbálj kevesebb szűrőt használni, vagy töröld az aktív szűrőket.
               </p>
               <Button onClick={clearFilters} className="mt-6 bg-primary font-bold text-primary-foreground hover:bg-cta">
                 Szűrők törlése

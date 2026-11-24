@@ -4,6 +4,7 @@ import { SearchSection } from '@/components/search-section'
 import { FeaturedJobsSection } from '@/components/featured-jobs-section'
 import { WhyDelegoSection } from '@/components/why-delego-section'
 import { StatsSection } from '@/components/stats-section'
+import { ForCompaniesSection } from '@/components/for-companies-section'
 import { Footer } from '@/components/footer'
 
 export default function HomePage() {
@@ -15,6 +16,7 @@ export default function HomePage() {
         <SearchSection />
         <FeaturedJobsSection />
         <WhyDelegoSection />
+        <ForCompaniesSection />
         <StatsSection />
       </main>
       <Footer />

@@ -38,13 +38,14 @@ export default async function JobDetailPage({
       <Navbar />
 
       <main className="pb-28 lg:pb-20">
-        <section className="relative min-h-[520px] overflow-hidden bg-slate-950 pt-24 text-white">
+        <section className="relative min-h-[520px] overflow-hidden bg-zinc-950 pt-24 text-white">
           <div
             className="absolute inset-0 bg-cover bg-center"
             style={{ backgroundImage: `url(${job.headerImage})` }}
           />
-          <div className="absolute inset-0 bg-slate-950/55" />
-          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(15,23,42,0.92)_0%,rgba(15,23,42,0.72)_45%,rgba(15,23,42,0.2)_100%)]" />
+          <div className="absolute inset-0 bg-zinc-950/55" />
+          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(18,18,20,0.92)_0%,rgba(18,18,20,0.72)_45%,rgba(18,18,20,0.2)_100%)]" />
+          <div className="absolute bottom-0 left-0 top-0 w-1.5 bg-primary lg:w-2" />
 
           <div className="relative mx-auto flex min-h-[430px] max-w-7xl flex-col justify-center px-4 py-10 lg:px-8">
             <Link
@@ -52,20 +53,20 @@ export default async function JobDetailPage({
               className="mb-8 inline-flex w-fit items-center gap-2 rounded-md border border-white/15 bg-white/10 px-3 py-2 text-sm font-semibold text-white/85 backdrop-blur-md transition-colors hover:bg-white/15 hover:text-white"
             >
               <ArrowLeft className="h-4 w-4" />
-              Vissza a munkákhoz
+              Vissza az állásokhoz
             </Link>
 
             <div className="max-w-3xl">
               <div className="mb-4 flex flex-wrap gap-2">
                 {job.isNew && (
-                  <span className="inline-flex items-center gap-1 rounded-md bg-accent px-3 py-1 text-sm font-bold text-accent-foreground">
+                  <span className="inline-flex items-center gap-1 rounded-md bg-white px-3 py-1 text-sm font-bold text-primary">
                     <Sparkles className="h-4 w-4" />
-                    Új lehetőség
+                    Új állás
                   </span>
                 )}
                 {job.isFeatured && (
                   <span className="rounded-md bg-primary px-3 py-1 text-sm font-bold text-primary-foreground">
-                    Kiemelt munka
+                    Kiemelt állás
                   </span>
                 )}
               </div>
@@ -75,20 +76,20 @@ export default async function JobDetailPage({
               </h1>
 
               <div className="grid max-w-3xl gap-3 sm:grid-cols-3">
-                <div className="rounded-lg border border-white/15 bg-white/12 p-4 backdrop-blur-md">
-                  <Banknote className="mb-3 h-5 w-5 text-accent" />
-                  <p className="text-2xl font-extrabold">{job.salary}</p>
-                  <p className="text-sm text-white/70">órabér</p>
+                <div className="rounded-lg border border-white/10 border-l-4 border-l-primary bg-white/10 p-4 backdrop-blur-md">
+                  <Banknote className="mb-3 h-5 w-5 text-primary" />
+                  <p className="text-xl font-extrabold">{job.salary}</p>
+                  <p className="text-sm text-white/70">havi bér</p>
                 </div>
-                <div className="rounded-lg border border-white/15 bg-white/12 p-4 backdrop-blur-md">
-                  <MapPin className="mb-3 h-5 w-5 text-accent" />
-                  <p className="text-2xl font-extrabold">{job.location}</p>
+                <div className="rounded-lg border border-white/10 border-l-4 border-l-primary bg-white/10 p-4 backdrop-blur-md">
+                  <MapPin className="mb-3 h-5 w-5 text-primary" />
+                  <p className="text-xl font-extrabold">{job.location}</p>
                   <p className="text-sm text-white/70">helyszín</p>
                 </div>
-                <div className="rounded-lg border border-white/15 bg-white/12 p-4 backdrop-blur-md">
-                  <Clock className="mb-3 h-5 w-5 text-accent" />
-                  <p className="text-2xl font-extrabold">{job.workType}</p>
-                  <p className="text-sm text-white/70">munka típusa</p>
+                <div className="rounded-lg border border-white/10 border-l-4 border-l-primary bg-white/10 p-4 backdrop-blur-md">
+                  <Clock className="mb-3 h-5 w-5 text-primary" />
+                  <p className="text-xl font-extrabold">{job.workType}</p>
+                  <p className="text-sm text-white/70">munkarend</p>
                 </div>
               </div>
             </div>
@@ -113,7 +114,7 @@ export default async function JobDetailPage({
                 </span>
               </div>
 
-              <h2 className="mb-3 text-2xl font-extrabold text-foreground">A munkáról</h2>
+              <h2 className="mb-3 text-2xl font-extrabold text-foreground">A pozícióról</h2>
               <p className="leading-8 text-muted-foreground">{job.description}</p>
             </section>
 
@@ -157,11 +158,11 @@ export default async function JobDetailPage({
           </div>
 
           <aside className="hidden lg:sticky lg:top-24 lg:block lg:h-fit">
-            <div className="rounded-lg border border-border bg-card p-6 shadow-xl shadow-slate-950/5">
+            <div className="rounded-lg border border-border bg-card p-6 shadow-xl shadow-zinc-950/5">
               <div className="mb-6 flex items-start justify-between gap-4">
                 <div>
-                  <p className="text-sm font-semibold text-muted-foreground">Órabér</p>
-                  <p className="text-4xl font-extrabold text-primary">{job.salary}</p>
+                  <p className="text-sm font-semibold text-muted-foreground">Havi bér</p>
+                  <p className="whitespace-nowrap text-xl font-extrabold text-primary">{job.salary}</p>
                 </div>
                 <div className="flex gap-2">
                   <button className="flex h-10 w-10 items-center justify-center rounded-md border border-border text-muted-foreground transition-colors hover:border-primary hover:text-primary" aria-label="Munka mentése">
@@ -194,7 +195,7 @@ export default async function JobDetailPage({
               </div>
 
               <p className="mt-6 rounded-md bg-primary/8 p-3 text-center text-sm font-semibold text-primary">
-                Gyors jelentkezés, kb. 2 perc alatt.
+                Kollégánk 1 munkanapon belül visszahívja.
               </p>
             </div>
           </aside>
@@ -203,8 +204,8 @@ export default async function JobDetailPage({
         <section className="mx-auto max-w-7xl px-4 pt-16 lg:px-8">
           <div className="mb-6 flex items-end justify-between gap-4">
             <div>
-              <h2 className="text-2xl font-extrabold text-foreground lg:text-3xl">Hasonló munkák</h2>
-              <p className="mt-1 text-muted-foreground">Nézz meg még pár gyorsan jelentkezhető lehetőséget.</p>
+              <h2 className="text-2xl font-extrabold text-foreground lg:text-3xl">Hasonló állások</h2>
+              <p className="mt-1 text-muted-foreground">További nyitott pozíciók partnereinknél.</p>
             </div>
           </div>
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -218,7 +219,7 @@ export default async function JobDetailPage({
       <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-border bg-card/95 p-4 shadow-2xl backdrop-blur-md lg:hidden">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4">
           <div>
-            <p className="text-xs font-semibold text-muted-foreground">Órabér</p>
+            <p className="text-xs font-semibold text-muted-foreground">Havi bér</p>
             <p className="text-xl font-extrabold text-primary">{job.salary}</p>
           </div>
           <Link href={`/munka/${job.id}/jelentkezes`}>

@@ -44,11 +44,11 @@ export function Navbar() {
   }
 
   const navLinks = [
-    { href: '/', label: 'Állásaink' },
-    { href: '#categories', label: 'Kategóriák' },
-    { href: '#about', label: 'Rólunk' },
-    { href: '#faq', label: 'FAQ' },
-    { href: '#ugyfel', label: 'Ügyfélkapu' },
+    { href: '/munkak', label: 'Állások' },
+    { href: '/#about', label: 'Munkavállalóknak' },
+    { href: '/#cegeknek', label: 'Cégeknek' },
+    { href: '/rolunk', label: 'Rólunk' },
+    { href: '/kapcsolat', label: 'Kapcsolat' },
   ]
 
   return (
@@ -61,7 +61,7 @@ export function Navbar() {
     >
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 lg:px-8">
         {/* Logo */}
-        <SiteLogo className="h-14 w-32" priority />
+        <SiteLogo className="h-11" priority />
 
         {/* Desktop Navigation */}
         <div className="hidden items-center gap-8 md:flex">
@@ -87,14 +87,14 @@ export function Navbar() {
             {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
           </button>
           
-          <Link href="/bejelentkezes">
-            <Button variant="ghost" className="font-medium">
-              Bejelentkezés
+          <Link href="/#cegeknek">
+            <Button variant="ghost" className="font-semibold">
+              Munkaerőt keresek
             </Button>
           </Link>
-          <Link href="/regisztracio">
+          <Link href="/munkak">
             <Button className="bg-primary font-semibold text-primary-foreground hover:bg-cta">
-              Regisztráció
+              Munkát keresek
             </Button>
           </Link>
         </div>
@@ -133,14 +133,14 @@ export function Navbar() {
               </Link>
             ))}
             <hr className="border-border" />
-            <Link href="/bejelentkezes" onClick={() => setIsMobileMenuOpen(false)}>
-              <Button variant="ghost" className="w-full justify-start font-medium">
-                Bejelentkezés
+            <Link href="/#cegeknek" onClick={() => setIsMobileMenuOpen(false)}>
+              <Button variant="outline" className="w-full font-semibold">
+                Munkaerőt keresek
               </Button>
             </Link>
-            <Link href="/regisztracio" onClick={() => setIsMobileMenuOpen(false)}>
+            <Link href="/munkak" onClick={() => setIsMobileMenuOpen(false)}>
               <Button className="w-full bg-primary font-semibold text-primary-foreground hover:bg-cta">
-                Regisztráció
+                Munkát keresek
               </Button>
             </Link>
           </div>

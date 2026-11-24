@@ -6,9 +6,9 @@ import { Search, MapPin, Briefcase, SlidersHorizontal, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 
-const cities = ['Budapest', 'Debrecen', 'Szeged', 'Pécs', 'Győr', 'Miskolc']
-const categories = ['Vendéglátás', 'Irodai', 'Promóció', 'Fizikai', 'IT', 'Egyéb']
-const workTypes = ['Részmunkaidő', 'Teljes munkaidő', 'Alkalmi']
+const cities = ['Budapest', 'Győr', 'Kecskemét', 'Székesfehérvár', 'Debrecen', 'Miskolc']
+const categories = ['Gyártás', 'Logisztika', 'Szakmunka', 'Szállítás', 'Minőségbiztosítás']
+const workTypes = ['Teljes munkaidő', 'Több műszak']
 
 export function SearchSection() {
   const router = useRouter()
@@ -40,14 +40,14 @@ export function SearchSection() {
 
   return (
     <section className="relative z-10 mx-auto -mt-16 max-w-5xl px-4 lg:px-8">
-      <div className="rounded-lg border border-border/70 bg-card/95 p-4 shadow-2xl shadow-slate-950/10 backdrop-blur-md lg:p-5">
+      <div className="rounded-lg border border-border/70 bg-card/95 p-4 shadow-2xl shadow-zinc-950/10 backdrop-blur-md lg:p-5">
         {/* Main search bar */}
         <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:gap-4">
           <div className="relative flex-1">
             <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
             <Input
               type="text"
-              placeholder="Milyen munkát keresel?"
+              placeholder="Munkakör, pl. targoncavezető, hegesztő..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               onKeyDown={(e) => {

@@ -11,7 +11,7 @@ import {
   CheckCircle2,
   Clock,
   FileText,
-  GraduationCap,
+  Briefcase,
   MapPin,
   ShieldCheck,
   Upload,
@@ -24,8 +24,8 @@ import { jobs } from '@/lib/jobs'
 
 const steps = [
   { id: 1, title: 'Személyes adatok', shortTitle: 'Adatok', icon: User },
-  { id: 2, title: 'Iskolai adatok', shortTitle: 'Iskola', icon: GraduationCap },
-  { id: 3, title: 'Dokumentumok', shortTitle: 'Doksi', icon: FileText },
+  { id: 2, title: 'Szakmai adatok', shortTitle: 'Szakma', icon: Briefcase },
+  { id: 3, title: 'Dokumentumok', shortTitle: 'Önéletrajz', icon: FileText },
   { id: 4, title: 'Ellenőrzés', shortTitle: 'Küldés', icon: CheckCircle2 },
 ]
 
@@ -35,10 +35,10 @@ interface FormData {
   email: string
   phone: string
   birthDate: string
-  schoolName: string
-  major: string
-  studentIdNumber: string
-  graduationYear: string
+  education: string
+  lastPosition: string
+  experienceYears: string
+  licenses: string
   cv: File | null
   motivation: string
 }
@@ -59,10 +59,10 @@ export default function ApplicationPage() {
     email: '',
     phone: '',
     birthDate: '',
-    schoolName: '',
-    major: '',
-    studentIdNumber: '',
-    graduationYear: '',
+    education: '',
+    lastPosition: '',
+    experienceYears: '',
+    licenses: '',
     cv: null,
     motivation: '',
   })
@@ -88,8 +88,8 @@ export default function ApplicationPage() {
     }
 
     if (step === 2) {
-      if (!formData.schoolName.trim()) newErrors.schoolName = 'Az iskola nevének megadása kötelező'
-      if (!formData.studentIdNumber.trim()) newErrors.studentIdNumber = 'A diákigazolvány szám megadása kötelező'
+      if (!formData.education) newErrors.education = 'A legmagasabb végzettség megadása kötelező'
+      if (!formData.experienceYears) newErrors.experienceYears = 'A szakmai tapasztalat megadása kötelező'
     }
 
     if (step === 4 && !consentAccepted) {
@@ -129,19 +129,19 @@ export default function ApplicationPage() {
       <div className="min-h-screen bg-background">
         <Navbar />
         <main className="flex min-h-screen items-center justify-center px-4 py-28">
-          <div className="w-full max-w-xl rounded-lg border border-border bg-card p-8 text-center shadow-xl shadow-slate-950/5">
-            <div className="mb-6 inline-flex h-20 w-20 items-center justify-center rounded-lg bg-accent">
-              <Check className="h-10 w-10 text-accent-foreground" />
+          <div className="w-full max-w-xl rounded-lg border border-border bg-card p-8 text-center shadow-xl shadow-zinc-950/5">
+            <div className="mb-6 inline-flex h-20 w-20 items-center justify-center rounded-lg bg-primary">
+              <Check className="h-10 w-10 text-primary-foreground" />
             </div>
             <h1 className="mb-3 text-3xl font-extrabold text-foreground">Sikeresen jelentkeztél!</h1>
             <p className="mb-8 text-muted-foreground">
               {job ? `A(z) ${job.title} pozícióra beérkezett a jelentkezésed.` : 'Beérkezett a jelentkezésed.'}
-              {' '}Hamarosan felvesszük veled a kapcsolatot.
+              {' '}Toborzó kollégánk 1 munkanapon belül telefonon keres.
             </p>
             <div className="flex flex-col gap-3 sm:flex-row sm:justify-center">
               <Link href="/#jobs">
                 <Button size="lg" className="w-full bg-primary font-bold text-primary-foreground hover:bg-cta sm:w-auto">
-                  További munkák
+                  További állások
                 </Button>
               </Link>
               <Link href="/">
@@ -171,7 +171,7 @@ export default function ApplicationPage() {
           </button>
 
           <div className="grid gap-8 lg:grid-cols-[1fr_360px]">
-            <section className="rounded-lg border border-border bg-card shadow-xl shadow-slate-950/5">
+            <section className="rounded-lg border border-border bg-card shadow-xl shadow-zinc-950/5">
               <div className="border-b border-border p-5 sm:p-6 lg:p-8">
                 <p className="mb-2 text-sm font-bold text-primary">Gyors jelentkezés</p>
                 <h1 className="text-3xl font-extrabold text-foreground lg:text-4xl">
@@ -179,8 +179,8 @@ export default function ApplicationPage() {
                 </h1>
                 <p className="mt-2 text-muted-foreground">
                   {currentStep === 1 && 'Add meg az alapadataidat, hogy fel tudjuk venni veled a kapcsolatot.'}
-                  {currentStep === 2 && 'Ellenőrizzük a diák státuszodhoz szükséges alapinformációkat.'}
-                  {currentStep === 3 && 'A CV opcionális, de segíthet gyorsabban továbbítani a profilod.'}
+                  {currentStep === 2 && 'Mondd el röviden, milyen végzettséged és tapasztalatod van.'}
+                  {currentStep === 3 && 'Az önéletrajz opcionális, de segít gyorsabban a megfelelő pozícióhoz illeszteni.'}
                   {currentStep === 4 && 'Nézd át az adatokat, majd küldd el a jelentkezést.'}
                 </p>
 
@@ -230,17 +230,27 @@ export default function ApplicationPage() {
 
                 {currentStep === 2 && (
                   <div className="grid gap-5 sm:grid-cols-2">
-                    <Field label="Iskola neve" error={errors.schoolName} required className="sm:col-span-2">
-                      <Input value={formData.schoolName} onChange={(e) => updateFormData('schoolName', e.target.value)} placeholder="pl. Budapesti Műszaki Egyetem" className={inputClass('schoolName')} />
+                    <Field label="Legmagasabb iskolai végzettség" error={errors.education} required>
+                      <select value={formData.education} onChange={(e) => updateFormData('education', e.target.value)} className={`${inputClass('education')} w-full border border-input px-3 text-sm focus:border-primary focus:outline-none`}>
+                        <option value="">Válassz...</option>
+                        {['8 általános', 'Szakmunkásképző / szakiskola', 'Érettségi', 'Technikum / OKJ', 'Felsőfokú'].map((option) => (
+                          <option key={option} value={option}>{option}</option>
+                        ))}
+                      </select>
                     </Field>
-                    <Field label="Szak / tagozat">
-                      <Input value={formData.major} onChange={(e) => updateFormData('major', e.target.value)} placeholder="pl. Gazdaságinformatikus" className={inputClass('major')} />
+                    <Field label="Szakmai tapasztalat" error={errors.experienceYears} required>
+                      <select value={formData.experienceYears} onChange={(e) => updateFormData('experienceYears', e.target.value)} className={`${inputClass('experienceYears')} w-full border border-input px-3 text-sm focus:border-primary focus:outline-none`}>
+                        <option value="">Válassz...</option>
+                        {['Nincs még', '1 év alatt', '1–3 év', '3–5 év', '5 év felett'].map((option) => (
+                          <option key={option} value={option}>{option}</option>
+                        ))}
+                      </select>
                     </Field>
-                    <Field label="Várható végzés éve">
-                      <Input type="number" value={formData.graduationYear} onChange={(e) => updateFormData('graduationYear', e.target.value)} placeholder="pl. 2027" min="2024" max="2035" className={inputClass('graduationYear')} />
+                    <Field label="Jelenlegi / utolsó munkakör" className="sm:col-span-2">
+                      <Input value={formData.lastPosition} onChange={(e) => updateFormData('lastPosition', e.target.value)} placeholder="pl. raktári munkatárs" className={inputClass('lastPosition')} />
                     </Field>
-                    <Field label="Diákigazolvány szám" error={errors.studentIdNumber} required className="sm:col-span-2">
-                      <Input value={formData.studentIdNumber} onChange={(e) => updateFormData('studentIdNumber', e.target.value)} placeholder="pl. 1234567890" className={inputClass('studentIdNumber')} />
+                    <Field label="Jogosítványok, képesítések" className="sm:col-span-2">
+                      <Input value={formData.licenses} onChange={(e) => updateFormData('licenses', e.target.value)} placeholder="pl. B kategória, OKJ targonca, hegesztő minősítés" className={inputClass('licenses')} />
                     </Field>
                   </div>
                 )}
@@ -271,7 +281,7 @@ export default function ApplicationPage() {
                       <textarea
                         value={formData.motivation}
                         onChange={(e) => updateFormData('motivation', e.target.value)}
-                        placeholder="Írd le röviden, mikor tudnál kezdeni, milyen tapasztalatod van, vagy miért érdekel a munka..."
+                        placeholder="Írd le röviden, mikor tudnál kezdeni, vállalsz-e több műszakot, vagy szükséged van-e szállásra..."
                         rows={6}
                         className="w-full resize-none rounded-md border border-input bg-background px-4 py-3 text-foreground transition-colors focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
                       />
@@ -287,14 +297,14 @@ export default function ApplicationPage() {
                       ['Telefon', formData.phone],
                       ['Születési dátum', formData.birthDate],
                     ]} />
-                    <SummaryBlock title="Iskolai adatok" rows={[
-                      ['Iskola', formData.schoolName],
-                      ['Szak', formData.major || '-'],
-                      ['Diákigazolvány', formData.studentIdNumber],
-                      ['Végzés éve', formData.graduationYear || '-'],
+                    <SummaryBlock title="Szakmai adatok" rows={[
+                      ['Végzettség', formData.education],
+                      ['Tapasztalat', formData.experienceYears],
+                      ['Utolsó munkakör', formData.lastPosition || '-'],
+                      ['Képesítések', formData.licenses || '-'],
                     ]} />
                     <SummaryBlock title="Dokumentumok" rows={[
-                      ['CV', formData.cv?.name || 'Nincs feltöltve'],
+                      ['Önéletrajz', formData.cv?.name || 'Nincs feltöltve'],
                       ['Megjegyzés', formData.motivation ? 'Megadva' : 'Nincs'],
                     ]} />
 
@@ -347,7 +357,7 @@ export default function ApplicationPage() {
 
             <aside className="space-y-4 lg:sticky lg:top-24 lg:h-fit">
               {job && (
-                <div className="overflow-hidden rounded-lg border border-border bg-card shadow-xl shadow-slate-950/5">
+                <div className="overflow-hidden rounded-lg border border-border bg-card shadow-xl shadow-zinc-950/5">
                   <div
                     className="h-40 bg-cover bg-center"
                     style={{ backgroundImage: `url(${job.coverImage})` }}
@@ -356,7 +366,7 @@ export default function ApplicationPage() {
                     <p className="mb-1 text-sm font-bold text-primary">Jelentkezés erre</p>
                     <h2 className="text-xl font-extrabold text-foreground">{job.title}</h2>
                     <div className="mt-5 space-y-3 text-sm">
-                      <Info icon={Banknote} label="Órabér" value={job.salary} />
+                      <Info icon={Banknote} label="Havi bér" value={job.salary} />
                       <Info icon={MapPin} label="Helyszín" value={job.location} />
                       <Info icon={Clock} label="Beosztás" value={job.schedule} />
                     </div>

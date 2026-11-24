@@ -10,15 +10,16 @@ const footerLinks = {
     { label: 'Blog', href: '/blog' },
   ],
   students: [
-    { label: 'Munkák böngészése', href: '/munkak' },
-    { label: 'Regisztráció', href: '/regisztracio' },
-    { label: 'Bejelentkezés', href: '/bejelentkezes' },
-    { label: 'FAQ', href: '/faq' },
+    { label: 'Állások böngészése', href: '/munkak' },
+    { label: 'Önéletrajz feltöltése', href: '/oneletrajz' },
+    { label: 'Szállás és utazás', href: '/szallas' },
+    { label: 'GYIK', href: '/gyik' },
   ],
   partners: [
-    { label: 'Partnerprogram', href: '/partnereknek' },
-    { label: 'Hirdetés feladása', href: '/hirdetes' },
-    { label: 'Árak', href: '/arak' },
+    { label: 'Munkaerő-kölcsönzés', href: '/munkaero-kolcsonzes' },
+    { label: 'Munkaerő-közvetítés', href: '/munkaero-kozvetites' },
+    { label: 'Toborzás', href: '/toborzas' },
+    { label: 'Ajánlatkérés', href: '/ajanlatkeres' },
   ],
   legal: [
     { label: 'Adatvédelem', href: '/adatvedelem' },
@@ -42,9 +43,9 @@ export function Footer() {
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-6">
           {/* Brand column */}
           <div className="lg:col-span-2">
-            <SiteLogo className="mb-4 h-14 w-32" />
+            <SiteLogo className="mb-5 h-11" />
             <p className="mb-6 max-w-xs text-muted-foreground">
-              A jövőd itt kezdődik! Találd meg a hozzád illő diákmunkát egyszerűen és gyorsan.
+              Munkaerő-kölcsönzés, -közvetítés és toborzás. Stabil állások munkavállalóknak, megbízható munkaerő cégeknek.
             </p>
             <div className="flex gap-4">
               {socialLinks.map((social) => (
@@ -77,7 +78,7 @@ export function Footer() {
           </div>
           
           <div>
-            <h3 className="mb-4 font-semibold text-foreground">Diákoknak</h3>
+            <h3 className="mb-4 font-semibold text-foreground">Munkavállalóknak</h3>
             <ul className="space-y-3">
               {footerLinks.students.map((link) => (
                 <li key={link.href}>
@@ -90,7 +91,7 @@ export function Footer() {
           </div>
           
           <div>
-            <h3 className="mb-4 font-semibold text-foreground">Partnereknek</h3>
+            <h3 className="mb-4 font-semibold text-foreground">Cégeknek</h3>
             <ul className="space-y-3">
               {footerLinks.partners.map((link) => (
                 <li key={link.href}>
@@ -119,7 +120,7 @@ export function Footer() {
         {/* Bottom bar */}
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-border pt-8 sm:flex-row">
           <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} Delego Diák Iskolaszövetkezet. Minden jog fenntartva.
+            © {new Date().getFullYear()} Delego. Minden jog fenntartva.
           </p>
           <p className="text-sm text-muted-foreground">
             Készítette: Gábor Sándor

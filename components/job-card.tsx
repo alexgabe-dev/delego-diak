@@ -31,7 +31,7 @@ export function JobCard({ job }: JobCardProps) {
               style={{ backgroundImage: `url(${job.coverImage})` }}
             />
           ) : (
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-primary/10 to-accent/20" />
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-secondary to-secondary" />
           )}
           {/* Gradient overlay */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
@@ -39,7 +39,7 @@ export function JobCard({ job }: JobCardProps) {
           {/* Badges */}
           <div className="absolute left-3 top-3 flex gap-2">
             {job.isNew && (
-              <span className="rounded-md bg-accent px-2.5 py-1 text-xs font-bold text-accent-foreground shadow-lg">
+              <span className="rounded-md bg-white px-2.5 py-1 text-xs font-bold text-primary shadow-lg">
                 Új
               </span>
             )}
@@ -68,7 +68,7 @@ export function JobCard({ job }: JobCardProps) {
             
             {/* Salary */}
             <div className="flex items-center gap-2 text-sm font-semibold text-foreground">
-              <Banknote className="h-4 w-4 shrink-0 text-accent" />
+              <Banknote className="h-4 w-4 shrink-0 text-primary" />
               <span>{job.salary}</span>
             </div>
             

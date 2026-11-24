@@ -4,78 +4,78 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Delego Brand Colors */
-  --background: #F7F8FA;
-  --foreground: #1F2937;
+  /* Delego Brand Colors – piros / fehér / szürke */
+  --background: #F5F5F6;
+  --foreground: #1C1C1E;
   --card: #FFFFFF;
-  --card-foreground: #1F2937;
+  --card-foreground: #1C1C1E;
   --popover: #FFFFFF;
-  --popover-foreground: #1F2937;
+  --popover-foreground: #1C1C1E;
   
-  /* Primary - Delego Blue */
-  --primary: #68ccda;
+  /* Primary - Delego Piros */
+  --primary: #CF3334;
   --primary-foreground: #FFFFFF;
   
-  /* Secondary - Light Blue */
-  --secondary: #EAF7FD;
-  --secondary-foreground: #1F2937;
+  /* Secondary - Világosszürke */
+  --secondary: #EEEEF0;
+  --secondary-foreground: #1C1C1E;
   
   /* Muted */
-  --muted: #F7F8FA;
-  --muted-foreground: #6B7280;
+  --muted: #F5F5F6;
+  --muted-foreground: #6B6B70;
   
-  /* Accent - Lime highlight */
-  --accent: #D9F56B;
-  --accent-foreground: #1F2937;
+  /* Accent - Halvány piros */
+  --accent: #FBE7E7;
+  --accent-foreground: #A82729;
   
-  /* CTA Blue (darker) */
-  --cta: #1F6FB2;
+  /* CTA - Sötétpiros */
+  --cta: #A82729;
   --cta-foreground: #FFFFFF;
   
-  /* Beige card */
-  --beige: #F6EBC8;
-  --beige-foreground: #1F2937;
+  /* Grafit felület */
+  --beige: #2A2A2E;
+  --beige-foreground: #FFFFFF;
   
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: #FFFFFF;
   
-  --border: #E5E7EB;
-  --input: #E5E7EB;
-  --ring: #68ccda;
+  --border: #E2E2E5;
+  --input: #E2E2E5;
+  --ring: #CF3334;
   
-  --chart-1: #68ccda;
-  --chart-2: #D9F56B;
-  --chart-3: #1F6FB2;
-  --chart-4: #F6EBC8;
-  --chart-5: #EAF7FD;
+  --chart-1: #CF3334;
+  --chart-2: #A82729;
+  --chart-3: #6B6B70;
+  --chart-4: #B8B8BD;
+  --chart-5: #EEEEF0;
   
-  --radius: 1.25rem;
+  --radius: 0.75rem;
 }
 
 .dark {
-  --background: #0F172A;
-  --foreground: #F8FAFC;
-  --card: #1E293B;
-  --card-foreground: #F8FAFC;
-  --popover: #1E293B;
-  --popover-foreground: #F8FAFC;
-  --primary: #68ccda;
+  --background: #121214;
+  --foreground: #F4F4F5;
+  --card: #1C1C1F;
+  --card-foreground: #F4F4F5;
+  --popover: #1C1C1F;
+  --popover-foreground: #F4F4F5;
+  --primary: #E04546;
   --primary-foreground: #FFFFFF;
-  --secondary: #1E3A5F;
-  --secondary-foreground: #F8FAFC;
-  --muted: #1E293B;
-  --muted-foreground: #94A3B8;
-  --accent: #D9F56B;
-  --accent-foreground: #1F2937;
-  --cta: #68ccda;
+  --secondary: #2A2A2E;
+  --secondary-foreground: #F4F4F5;
+  --muted: #1C1C1F;
+  --muted-foreground: #A1A1A8;
+  --accent: #3A1F20;
+  --accent-foreground: #F5B5B5;
+  --cta: #CF3334;
   --cta-foreground: #FFFFFF;
-  --beige: #3D3A2F;
-  --beige-foreground: #F8FAFC;
+  --beige: #0B0B0C;
+  --beige-foreground: #F4F4F5;
   --destructive: oklch(0.396 0.141 25.723);
-  --destructive-foreground: #F8FAFC;
-  --border: #334155;
-  --input: #334155;
-  --ring: #68ccda;
+  --destructive-foreground: #F4F4F5;
+  --border: #323236;
+  --input: #323236;
+  --ring: #E04546;
 }
 
 @theme inline {

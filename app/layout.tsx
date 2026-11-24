@@ -10,9 +10,9 @@ const poppins = Poppins({
 })
 
 export const metadata: Metadata = {
-  title: 'Delego Diák | A jövőd itt kezdődik!',
-  description: 'Találd meg a hozzád illő diákmunkát egyszerűen és gyorsan. Gyors jelentkezés, rugalmas munkák, heti fizetés.',
-  keywords: ['diákmunka', 'iskolaszövetkezet', 'állás', 'diák', 'munka', 'részfoglalkozás'],
+  title: 'Delego | Munkaerő-kölcsönzés és -közvetítés',
+  description: 'Stabil állások munkavállalóknak, megbízható munkaerő cégeknek. Munkaerő-kölcsönzés, -közvetítés és toborzás országszerte.',
+  keywords: ['munkaerő-kölcsönzés', 'munkaerő-közvetítés', 'állás', 'munka', 'toborzás', 'fizikai munka', 'szakmunka'],
 }
 
 export default function RootLayout({

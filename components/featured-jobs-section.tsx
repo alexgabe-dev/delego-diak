@@ -12,15 +12,15 @@ export function FeaturedJobsSection() {
         <div className="mb-10 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
           <div>
             <h2 className="mb-2 text-3xl font-extrabold text-foreground lg:text-5xl text-balance">
-              Friss diákmunkák
+              Kiemelt állásaink
             </h2>
             <p className="text-lg text-muted-foreground">
-              Válassz gyorsan jelentkezhető, ellenőrzött lehetőségek közül.
+              Bejelentett, hosszú távú pozíciók ellenőrzött partnercégeinknél.
             </p>
           </div>
           <Link href="/munkak">
             <Button variant="outline" className="group border-2 border-primary font-semibold text-primary hover:bg-primary hover:text-primary-foreground">
-              Összes munka
+              Összes állás
               <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Button>
           </Link>
@@ -37,7 +37,7 @@ export function FeaturedJobsSection() {
         <div className="mt-10 text-center lg:hidden">
           <Link href="/munkak">
             <Button size="lg" className="w-full bg-primary font-semibold text-primary-foreground hover:bg-cta sm:w-auto">
-              További munkák
+              További állások
             </Button>
           </Link>
         </div>
