@@ -9,19 +9,33 @@ export function StatsSection() {
   return (
     <section className="py-16 lg:py-24">
       <div className="mx-auto max-w-7xl px-4 lg:px-8">
-        <div className="relative overflow-hidden rounded-2xl bg-zinc-200/60 p-8 shadow-xl shadow-zinc-950/5 ring-1 ring-white/60 backdrop-blur-xl lg:p-12 dark:bg-white/5 dark:ring-white/10">
-          <div className="pointer-events-none absolute -left-16 -top-16 h-56 w-56 rounded-full bg-white/70 blur-3xl dark:bg-white/5" />
-          <div className="pointer-events-none absolute -bottom-20 right-10 h-56 w-56 rounded-full bg-primary/10 blur-3xl" />
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-            {stats.map((stat) => (
-              <div key={stat.label} className="relative text-center lg:border-l lg:border-zinc-400/30 lg:first:border-l-0 dark:lg:border-white/10">
-                <div className="mb-2 text-4xl font-extrabold text-foreground lg:text-5xl">
-                  {stat.value.toLocaleString('hu-HU')}
-                  <span className="text-primary">{stat.suffix}</span>
+        {/* Háttérkép, hogy az üveghatás látszódjon */}
+        <div className="relative overflow-hidden rounded-3xl p-4 sm:p-8 lg:p-12">
+          <div
+            className="absolute inset-0 scale-110 bg-cover bg-center blur-[2px]"
+            style={{
+              backgroundImage:
+                "url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1600&h=700&fit=crop&q=80')",
+            }}
+          />
+          <div className="absolute inset-0 bg-zinc-900/45" />
+          <div className="absolute -left-10 top-1/2 h-48 w-48 -translate-y-1/2 rounded-full bg-primary/50 blur-3xl" />
+
+          <div className="relative rounded-2xl border border-white/50 bg-white/55 p-8 shadow-2xl shadow-black/20 backdrop-blur-xl lg:p-10 dark:border-white/10 dark:bg-zinc-900/55">
+            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+              {stats.map((stat) => (
+                <div
+                  key={stat.label}
+                  className="text-center lg:border-l lg:border-zinc-900/10 lg:first:border-l-0 dark:lg:border-white/10"
+                >
+                  <div className="mb-2 text-4xl font-extrabold text-zinc-900 lg:text-5xl dark:text-white">
+                    {stat.value.toLocaleString('hu-HU')}
+                    <span className="text-primary">{stat.suffix}</span>
+                  </div>
+                  <div className="text-lg font-semibold text-zinc-700 dark:text-white/75">{stat.label}</div>
                 </div>
-                <div className="text-lg font-medium text-muted-foreground">{stat.label}</div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </div>
