@@ -74,23 +74,24 @@ export default async function JobDetailPage({
                 {job.title}
               </h1>
 
-              <div className="grid max-w-3xl gap-3 sm:grid-cols-3">
-                <div className="rounded-2xl bg-zinc-400/25 p-4 shadow-lg shadow-black/10 backdrop-blur-xl">
-                  <Banknote className="mb-3 h-5 w-5 text-primary" />
-                  <p className="text-xl font-extrabold">{job.salary}</p>
-                  <p className="text-sm text-white/70">havi bér</p>
-                </div>
-                <div className="rounded-2xl bg-zinc-400/25 p-4 shadow-lg shadow-black/10 backdrop-blur-xl">
-                  <MapPin className="mb-3 h-5 w-5 text-primary" />
-                  <p className="text-xl font-extrabold">{job.location}</p>
-                  <p className="text-sm text-white/70">helyszín</p>
-                </div>
-                <div className="rounded-2xl bg-zinc-400/25 p-4 shadow-lg shadow-black/10 backdrop-blur-xl">
-                  <Clock className="mb-3 h-5 w-5 text-primary" />
-                  <p className="text-xl font-extrabold">{job.workType}</p>
-                  <p className="text-sm text-white/70">munkarend</p>
-                </div>
-              </div>
+              <dl className="mt-2 flex flex-col gap-5 sm:flex-row sm:flex-wrap sm:items-center sm:gap-0">
+                {[
+                  { icon: Banknote, label: 'Havi bér', value: job.salary },
+                  { icon: MapPin, label: 'Helyszín', value: job.location },
+                  { icon: Clock, label: 'Munkarend', value: job.workType },
+                ].map((item) => (
+                  <div
+                    key={item.label}
+                    className="flex items-center gap-3 sm:border-l sm:border-white/15 sm:px-7 sm:first:border-l-0 sm:first:pl-0"
+                  >
+                    <item.icon className="h-6 w-6 shrink-0 text-primary" />
+                    <div>
+                      <dt className="text-xs font-semibold uppercase tracking-[0.14em] text-white/55">{item.label}</dt>
+                      <dd className="text-lg font-bold text-white">{item.value}</dd>
+                    </div>
+                  </div>
+                ))}
+              </dl>
             </div>
           </div>
         </section>
@@ -219,7 +220,7 @@ export default async function JobDetailPage({
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4">
           <div>
             <p className="text-xs font-semibold text-muted-foreground">Havi bér</p>
-            <p className="text-xl font-extrabold text-primary">{job.salary}</p>
+            <p className="whitespace-nowrap text-lg font-extrabold text-primary">{job.salary}</p>
           </div>
           <Link href={`/munka/${job.id}/jelentkezes`}>
             <Button size="lg" className="bg-primary font-bold text-primary-foreground hover:bg-cta">
