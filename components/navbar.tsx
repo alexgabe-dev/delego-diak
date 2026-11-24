@@ -87,11 +87,6 @@ export function Navbar() {
             {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
           </button>
           
-          <Link href="/#cegeknek">
-            <Button variant="ghost" className="font-semibold">
-              Munkaerőt keresek
-            </Button>
-          </Link>
           <Link href="/jelentkezes">
             <Button className="bg-primary font-semibold text-primary-foreground hover:bg-cta">
               Adatbázisba jelentkezem
@@ -133,11 +128,6 @@ export function Navbar() {
               </Link>
             ))}
             <hr className="border-border" />
-            <Link href="/#cegeknek" onClick={() => setIsMobileMenuOpen(false)}>
-              <Button variant="outline" className="w-full font-semibold">
-                Munkaerőt keresek
-              </Button>
-            </Link>
             <Link href="/jelentkezes" onClick={() => setIsMobileMenuOpen(false)}>
               <Button className="w-full bg-primary font-semibold text-primary-foreground hover:bg-cta">
                 Adatbázisba jelentkezem
