@@ -9,33 +9,25 @@ export function StatsSection() {
   return (
     <section className="py-16 lg:py-24">
       <div className="mx-auto max-w-7xl px-4 lg:px-8">
-        {/* Háttérkép, hogy az üveghatás látszódjon */}
-        <div className="relative overflow-hidden rounded-3xl p-4 sm:p-8 lg:p-12">
-          <div
-            className="absolute inset-0 scale-110 bg-cover bg-center blur-[2px]"
-            style={{
-              backgroundImage:
-                "url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1600&h=700&fit=crop&q=80')",
-            }}
-          />
-          <div className="absolute inset-0 bg-zinc-900/45" />
-          <div className="absolute -left-10 top-1/2 h-48 w-48 -translate-y-1/2 rounded-full bg-primary/50 blur-3xl" />
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-zinc-100 via-zinc-200/80 to-zinc-100 p-4 ring-1 ring-zinc-200 sm:p-6 lg:p-8 dark:from-zinc-900 dark:via-zinc-800/60 dark:to-zinc-900 dark:ring-white/10">
+          {/* Finom fényfoltok, hogy az üveghatás látszódjon */}
+          <div className="pointer-events-none absolute -left-20 -top-24 h-72 w-72 rounded-full bg-primary/25 blur-3xl dark:bg-primary/30" />
+          <div className="pointer-events-none absolute -bottom-28 left-1/2 h-72 w-96 -translate-x-1/2 rounded-full bg-white blur-3xl dark:bg-white/5" />
+          <div className="pointer-events-none absolute -right-16 -top-10 h-64 w-64 rounded-full bg-primary/15 blur-3xl" />
 
-          <div className="relative rounded-2xl border border-white/50 bg-white/55 p-8 shadow-2xl shadow-black/20 backdrop-blur-xl lg:p-10 dark:border-white/10 dark:bg-zinc-900/55">
-            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-              {stats.map((stat) => (
-                <div
-                  key={stat.label}
-                  className="text-center lg:border-l lg:border-zinc-900/10 lg:first:border-l-0 dark:lg:border-white/10"
-                >
-                  <div className="mb-2 text-4xl font-extrabold text-zinc-900 lg:text-5xl dark:text-white">
-                    {stat.value.toLocaleString('hu-HU')}
-                    <span className="text-primary">{stat.suffix}</span>
-                  </div>
-                  <div className="text-lg font-semibold text-zinc-700 dark:text-white/75">{stat.label}</div>
+          <div className="relative grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {stats.map((stat) => (
+              <div
+                key={stat.label}
+                className="rounded-2xl border border-white/80 bg-white/60 px-6 py-8 text-center shadow-lg shadow-zinc-900/5 backdrop-blur-xl dark:border-white/10 dark:bg-white/5 dark:shadow-black/20"
+              >
+                <div className="mb-2 text-4xl font-extrabold text-zinc-900 lg:text-5xl dark:text-white">
+                  {stat.value.toLocaleString('hu-HU')}
+                  <span className="text-primary">{stat.suffix}</span>
                 </div>
-              ))}
-            </div>
+                <div className="text-base font-semibold text-zinc-600 lg:text-lg dark:text-white/70">{stat.label}</div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
